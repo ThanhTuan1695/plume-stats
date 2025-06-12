@@ -128,7 +128,7 @@ export default function Home() {
           <input
             value={wallet}
             onChange={e => setWallet(e.target.value)}
-            placeholder="Nhập wallet address (0x...)"
+            placeholder="Enter wallet address (0x...)"
             style={{
               flex: 1,
               padding: "12px 18px",
