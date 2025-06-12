@@ -155,7 +155,7 @@ export default function Home() {
               boxShadow: "0 2px 8px #2B68F820"
             }}
           >
-            {loading ? "Đang tải..." : "Xem"}
+            {loading ? "Searching..." : "Go"}
           </button>
         </div>
         {err && <div style={{ color: "#f44336", marginBottom: 20 }}>{err}</div>}
