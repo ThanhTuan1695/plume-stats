@@ -43,9 +43,9 @@ function PlumeStatsView({ data }) {
         <StatBox label="Swap Volume" value={stats.swapVolume} color="#e6f7e6" />
         <StatBox label="TVL Total USD" value={Number(stats.tvlTotalUsd).toLocaleString()} color="#ffeae6" />
         <StatBox label="Protocols Used" value={stats.protocolsUsed} color="#fff4e6" />
-        <StatBox label="Total XP" value={stats.totalXp} color="#e6eaff" />
+        <StatBox label="Total PP" value={stats.totalXp} color="#e6eaff" />
         <StatBox label="Daily Spin Streak" value={stats.dailySpinStreak} color="#f0e6ff" />
-        <StatBox label="XP Rank" value={stats.xpRank} color="#e6fffa" />
+        <StatBox label="PP Rank" value={stats.xpRank} color="#e6fffa" />
         <StatBox label="Completed Quests" value={stats.completedQuests} color="#ffe6f2" />
         <StatBox label="TVL Levels" value={stats.currentTvlLevels} color="#e6fffa" />
       </div>
