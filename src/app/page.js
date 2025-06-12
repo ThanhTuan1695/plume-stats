@@ -167,7 +167,7 @@ export default function Home() {
             textAlign: "center",
             fontSize: 18
           }}>
-            Nhập địa chỉ ví Ethereum để xem thống kê Plume.
+            Enter your EVM wallet address to view Plume statistics.
           </div>
         )}
       </div>
