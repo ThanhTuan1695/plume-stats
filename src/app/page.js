@@ -173,6 +173,7 @@ export default function Home() {
       </div>
       <div style={{ textAlign: "center", marginTop: 80, color: "#aaa", fontSize: 13 }}>
         Made with ❤️ by Leiz95 | Plume Mod
+        Buy Me Coffee: 0x518A7ED92B00884aF1b94201307a8218BC4d5edf
       </div>
     </div>
   );
