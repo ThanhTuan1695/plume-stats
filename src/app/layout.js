@@ -14,8 +14,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
         <link rel="icon" href="https://portal.plume.org/assets/plume-logo-icon.svg" />
-                {/* Google AdSense */}
-        <Script
+        <script
           id="adsbygoogle"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1926430378604866"
