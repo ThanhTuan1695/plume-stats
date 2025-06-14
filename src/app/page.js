@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function StatBox({ label, value, color }) {
   return (
@@ -91,7 +91,28 @@ export default function Home() {
   const [wallet, setWallet] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [totalWallets, setTotalWallets] = useState(null);
   const [err, setErr] = useState("");
+
+  useEffect(() => {
+    const fetchTotalWallets = async () => {
+      try {
+        const res = await fetch("/api/totalwallet"); // Gọi API lấy tổng số ví
+        const json = await res.json();
+        console.log(json)
+        if (json.error) {
+          console.error(json.error);
+        } else {
+          setTotalWallets(json.totalWallets); // Cập nhật state tổng số ví
+          console.log("Total Wallets:", json.totalWallets);
+        }
+      } catch (error) {
+        console.error("Error fetching total wallets:", error);
+      }
+    };
+
+    fetchTotalWallets();
+  }, []); 
 
   const handleFetch = async () => {
     setLoading(true);
@@ -119,6 +140,24 @@ export default function Home() {
           marginBottom: 24,
           fontFamily: "Montserrat, Arial, sans-serif"
         }}>Plume Wallet Stats</h1>
+       <p
+          style={{
+            fontSize: 20,
+            marginBottom: 20,
+            fontWeight: "bold",
+            color: "#2B68F8",
+            textAlign: "center",
+            background: "#e6f7ff",
+            padding: "12px 20px",
+            borderRadius: "8px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <b>Total Wallets:</b>{" "}
+          <span style={{ color: "#1D4ED8", fontSize: 24 }}>
+            {totalWallets !== null ? totalWallets : "Loading..."}
+          </span>
+        </p>
         <div style={{
           display: "flex",
           gap: 10,

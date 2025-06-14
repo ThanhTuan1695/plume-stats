@@ -14,13 +14,6 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
         <link rel="icon" href="https://portal.plume.org/assets/plume-logo-icon.svg" />
-        <script
-          id="adsbygoogle"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1926430378604866"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </head>
       <body
         style={{
@@ -31,7 +24,7 @@ export default function RootLayout({ children }) {
           overflowX: "hidden",
         }}
       >
-        {/* Các blob pastel hiệu ứng nền */}
+        {/* Background effects */}
         <div
           style={{
             position: "absolute",
@@ -78,7 +71,7 @@ export default function RootLayout({ children }) {
             pointerEvents: "none",
           }}
         />
-        {/* Nội dung app */}
+        {/* App content */}
         <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
       </body>
     </html>
