@@ -13,12 +13,10 @@ export async function GET() {
           throw new Error(`Upstream API error with status: ${res.status}`);
         }
         const json = await res.json();
-        console.log(json);
   
         if (json.data.leaderboard && json.data.leaderboard.length > 0) {
           totalWallets += json.data.leaderboard.length;
           offset += count;
-          console.log(offset)
         } else {
           hasMoreData = false;
         }

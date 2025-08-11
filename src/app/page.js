@@ -20,10 +20,13 @@ function StatBox({ label, value, color }) {
   );
 }
 
+
 function PlumeStatsView({ data }) {
   const stats = data.stats || {};
-  console.log(data)
   const season = data.seasonOneAllocation || {};
+  const active = data.ppScores.ppScores.activeXp || {};
+  const prev = data.ppScores.ppScores.prevXp || {};
+  const delta = (active.totalXp ?? 0) - (prev.totalXp ?? 0);
   return (
     <div style={{
       marginTop: 32,
@@ -37,6 +40,24 @@ function PlumeStatsView({ data }) {
     }}>
       <h2 style={{ color: "#2B68F8" }}>
         Wallet: <span style={{ fontWeight: 400, color: "#333" }}>{data.walletAddress}</span>
+      </h2>
+      <br />
+      <br />
+      <h2 style={{ color: "#2B68F8", justifyContent: "space-between" }}>
+        <span>History Point</span>
+      </h2>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+        <StatBox label="Previous Point" value={prev.totalXp} color="#ffeae6" />
+        <StatBox label="Current Point" value={active.totalXp} color="#e6eaff" />
+
+        <StatBox
+          label={delta > 0 ? "Point Added" : delta < 0 ? "Deducted Point" : "No Change"}
+          value={delta}
+          color={delta > 0 ? "#3c15e9ff" : delta < 0 ? "rgba(241, 10, 10, 0.88)" : "#f20f0fff"}
+        />
+      </div>
+      <h2 style={{ color: "#2B68F8", justifyContent: "space-between" }}>
+        Overview Stats
       </h2>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
         <StatBox label="Bridged Total" value={stats.bridgedTotal} color="#e1eaff" />
@@ -90,6 +111,7 @@ function PlumeStatsView({ data }) {
 export default function Home() {
   const [wallet, setWallet] = useState("");
   const [data, setData] = useState(null);
+  const [ppScores, setPpScores] = useState(null); // Thêm state này
   const [loading, setLoading] = useState(false);
   const [totalWallets, setTotalWallets] = useState(null);
   const [err, setErr] = useState("");
@@ -104,7 +126,6 @@ export default function Home() {
           console.error(json.error);
         } else {
           setTotalWallets(json.totalWallets); // Cập nhật state tổng số ví
-          console.log("Total Wallets:", json.totalWallets);
         }
       } catch (error) {
         console.error("Error fetching total wallets:", error);
@@ -118,11 +139,20 @@ export default function Home() {
     setLoading(true);
     setErr("");
     setData(null);
+    setPpScores(null);
     try {
       const res = await fetch(`/api/wallet?walletAddress=${wallet}`);
       const json = await res.json();
-      if (json.data) setData(json.data);
-      else setErr("Không tìm thấy wallet hoặc lỗi dữ liệu!");
+      // if (json.data) setData(json.data);
+      // else setErr("Không tìm thấy wallet hoặc lỗi dữ liệu!");
+
+      const ppRes = await fetch(`/api/history-point?walletAddress=${wallet}`);
+      const ppJson = await ppRes.json();
+
+      if (json.data && ppJson.data) {
+        json.data.ppScores =ppJson.data
+        setData(json.data)
+      }
     } catch (e) {
       setErr("Có lỗi xảy ra khi gọi API!");
     }
@@ -198,8 +228,10 @@ export default function Home() {
           </button>
         </div>
         {err && <div style={{ color: "#f44336", marginBottom: 20 }}>{err}</div>}
+        
         {data && <PlumeStatsView data={data} />}
-        {!data && !loading && (
+        
+        {!data && !ppScores &&  !loading && (
           <div style={{
             marginTop: 60,
             color: "#aaa",
