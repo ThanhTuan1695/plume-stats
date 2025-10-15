@@ -92,6 +92,7 @@ export default function Home() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [totalWallets, setTotalWallets] = useState(null);
+  const [totalXP, setTotalXP] = useState(null);
   const [err, setErr] = useState("");
 
   useEffect(() => {
@@ -103,7 +104,8 @@ export default function Home() {
         if (json.error) {
           console.error(json.error);
         } else {
-          setTotalWallets(json.totalWallets); // Cập nhật state tổng số ví
+          setTotalWallets(json.totalWallets);
+          setTotalXP(json.totalXP) // Cập nhật state tổng số ví
           console.log("Total Wallets:", json.totalWallets);
         }
       } catch (error) {
@@ -156,6 +158,24 @@ export default function Home() {
           <b>Total Wallets:</b>{" "}
           <span style={{ color: "#1D4ED8", fontSize: 24 }}>
             {totalWallets !== null ? totalWallets : "Loading..."}
+          </span>
+        </p>
+        <p
+          style={{
+            fontSize: 20,
+            marginBottom: 20,
+            fontWeight: "bold",
+            color: "#2B68F8",
+            textAlign: "center",
+            background: "#e6f7ff",
+            padding: "12px 20px",
+            borderRadius: "8px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <b>Total Plume Points:</b>{" "}
+          <span style={{ color: "#1D4ED8", fontSize: 24 }}>
+            {totalXP !== null ? totalXP : "Loading..."}
           </span>
         </p>
         <div style={{
